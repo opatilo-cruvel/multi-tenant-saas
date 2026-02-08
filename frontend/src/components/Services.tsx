@@ -3,6 +3,7 @@ import { Sparkles, Gem, Palette, Heart, StarIcon } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -144,8 +145,7 @@ const Services = () => {
                   <h3 className="truncate font-semibold">{service.title}</h3>
                   <p className="truncate text-sm text-gray-400">{service.description}</p>
                   <Button variant="secondary" className="mt-3 w-full" asChild>
-                    {/* <Link href={`/barbershops/${barbershop.id}`}>Reservar</Link> */}
-                    <a href="/servicos">Saiba Mais</a>
+                    <Link to="/servicos">Saiba Mais</Link>
                   </Button>
                 </div>
               </CardContent>
