@@ -1,60 +1,68 @@
 import Footer from "@/components/Footer"
 import PhoneItem from "@/components/phone-item"
+import ServiceItem from "@/components/Service-item"
 import SidebarSheet from "@/components/sidebar-sheet"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Sheet, SheetTrigger } from "@/components/ui/sheet"
-
 import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 
-const services = [
+export const services = [
   {
+    id: 1,
     title: "Alongamento em Gel",
     description: "Unhas perfeitas e duradouras com técnicas avançadas de alongamento em gel.",
-    price: "A partir de R$ 120",
+    price: 120.00,
     url: "https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha1.svg",
   },
   {
+    id: 2,
     title: "Esmaltação em Gel",
     description: "Cores vibrantes e duração de até 3 semanas com acabamento impecável.",
-    price: "A partir de R$ 60",
+    price: 60.00,
     url: "https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha2.svg",
   },
   {
+    id: 3,
     title: "Nail Art",
     description: "Designs exclusivos e personalizados para expressar sua personalidade.",
-    price: "A partir de R$ 80",
+    price: 80.00,
     url: "https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha3.svg",
   },
   {
+    id: 4,
     title: "Manutenção",
     description: "Cuidados regulares para manter suas unhas sempre perfeitas e saudáveis.",
-    price: "A partir de R$ 70",
+    price: 70.00,
     url: "https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha4.svg",
   },
   {
+    id: 5,
     title: "Alongamento em Gel",
     description: "Unhas perfeitas e duradouras com técnicas avançadas de alongamento em gel.",
-    price: "A partir de R$ 120",
+    price: 120.00,
     url: "https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha1.svg",
   },
   {
+    id: 6,
     title: "Esmaltação em Gel",
     description: "Cores vibrantes e duração de até 3 semanas com acabamento impecável.",
-    price: "A partir de R$ 60",
+    price: 60.00,
     url: "https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha2.svg",
   },
   {
+    id: 7,
     title: "Nail Art",
     description: "Designs exclusivos e personalizados para expressar sua personalidade.",
-    price: "A partir de R$ 80",
+    price: 80.00,
     url: "https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha3.svg",
   },
   {
+    id: 8,
     title: "Manutenção",
     description: "Cuidados regulares para manter suas unhas sempre perfeitas e saudáveis.",
-    price: "A partir de R$ 70",
+    price: 70.00,
     url: "https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha4.svg",
   },
 ];
@@ -64,7 +72,8 @@ const ServicesPage = () => {
     return (
         <div>
             <div className="relative h-[250px] w-full">
-                <img className="object-cover" src="https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/service-banner/service-banner.svg" alt="" />
+
+                <img className="object-cover w-full h-full" src="https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/service-banner/service-banner.svg" alt="" />
 
                 <Button
                     size="icon"
@@ -116,19 +125,9 @@ const ServicesPage = () => {
             <div className="space-y-3 border-b border-solid p-5">
                 <h2 className="text-xs font-bold uppercase text-gray-400">Serviços</h2>
                 <div className="space-y-3">
-                    {/*TRANFORMAR EM COMPONENTES -> */}
-                    <Card>
-                        <CardContent className="flex items-center gap-3 p-3">
-                            <div className="relative max-h-[110px] min-h-[110px] min-w-[110px] max-w-[110px]">
-                                <img className="rounded-lg object-cover" src="https://gzfhudizzeavtqohsthc.supabase.co/storage/v1/object/public/images/establishments/default/services/unha3.svg" alt="" />
-
-                                <div className="space-y-2">
-
-                                </div>
-                            </div>
-                            
-                        </CardContent>
-                    </Card>
+                    {services.map((service) => (
+                        <ServiceItem key={service.id} service={service}/>
+                    ))}
                 </div>
             </div>
 
