@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model Owner {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+
+  establishments Establishment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Establishment {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  address     String?
+  phones      String[]
+  imageUrl    String?
+
+  ownerId String
+  owner   Owner @relation(fields: [ownerId], references: [id])
+
+  services EstablishmentService[]
+  bookings Booking[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EstablishmentService {
+  id              String @id @default(uuid())
+  name            String
+  description     String?
+  imageUrl        String?
+  price           Decimal @db.Decimal(10,2)
+
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id])
+
+  bookings Booking[]
+}
+
+model Booking {
+  id String @id @default(uuid())
+
+  userEmail     String  
+  userName      String
+  userPhone      String   
+
+  serviceId String
+  service   EstablishmentService @relation(fields: [serviceId], references: [id])
+
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id])
+
+  date DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
