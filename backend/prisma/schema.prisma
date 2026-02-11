@@ -51,6 +51,14 @@ model EstablishmentService {
   bookings Booking[]
 }
 
+enum BookingStatus {
+  SCHEDULED
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+
 model Booking {
   id String @id @default(uuid())
 
@@ -65,6 +73,8 @@ model Booking {
   establishment   Establishment @relation(fields: [establishmentId], references: [id])
 
   date DateTime
+
+  status BookingStatus @default(SCHEDULED)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
