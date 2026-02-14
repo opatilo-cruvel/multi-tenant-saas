@@ -1,36 +1,23 @@
 import express from "express";
 import cors from "cors";
-import { prisma } from "./lib/prisma.js";
+import { resolveTenant } from "./middlewares/tenant.middleware.js";
+
+
+import establishmentRoutes from "./modules/establishment/establishment.routes.js";
+import servicesRoutes from "./modules/establishmentServices/establishmentservice.routes.js";
+
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
-});
+app.use(resolveTenant);
 
-app.get("/owners", async (req, res) => {
-  try {
-    const owners = await prisma.owner.findMany();
-    return res.json(owners);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Erro ao buscar owners" });
-  }
-});
+// homepage do estabelecimento
+app.use("/", establishmentRoutes);
 
-app.get("/establishments", async (req, res) => {
-  try {
-    const establishments = await prisma.establishment.findMany();
-    return res.json(establishments);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Erro ao buscar establishments" });
-  }
-});
-
-
+// página de serviços
+app.use("/services", servicesRoutes);
 
 export default app;

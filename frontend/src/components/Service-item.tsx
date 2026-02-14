@@ -52,12 +52,12 @@ const ServiceItem = ({ service }) => {
             <Card>
                 <CardContent className="flex items-center gap-3 p-3">
                     <div className="relative max-h-[110px] min-h-[110px] min-w-[110px] max-w-[110px]">
-                        <img className="rounded-lg object-cover" src={service.url} alt={service.title} />
+                        <img className="rounded-lg object-cover" src={service.imageUrl} alt={service.title} />
                     </div>
 
                     {/*DIREITA*/}
                     <div className="space-y-2">
-                        <h3 className="text-sm font-semibold">{service.title}</h3>
+                        <h3 className="text-sm font-semibold">{service.name}</h3>
                         <p className="text-sm text-gray-400">{service.description}</p>
 
                         <div className="flex items-center justify-between">
