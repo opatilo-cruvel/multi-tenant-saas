@@ -1,10 +1,13 @@
-import { SmartphoneIcon } from "lucide-react"
-import { Button } from "./ui/button"
-import { toast } from "sonner"
+import { SmartphoneIcon } from "lucide-react";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
+import { useTenant } from "@/hooks/useTenant";
 
 const PhoneItem = () => {
   // Lista de telefones estáticos
-  const phones = ["(11) 99999-0001", "(11) 98888-0002"]
+  const { tenant } = useTenant();
+
+  const phones = tenant?.phones ?? [];
 
   const handleCopyPhoneClick = (phone: string) => {
     if (navigator.clipboard) {
@@ -22,6 +25,14 @@ const PhoneItem = () => {
         "Desculpe, sua plataforma não suporta copiar para a área de transferência."
       )
     }
+  }
+
+  if (!phones.length) {
+    return (
+      <p className="text-sm text-gray-400">
+        Nenhum telefone cadastrado.
+      </p>
+    )
   }
 
   return (
