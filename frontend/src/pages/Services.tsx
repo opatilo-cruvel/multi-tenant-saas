@@ -8,19 +8,17 @@ import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { api } from "@/services/api";
+import { useTenant } from "@/hooks/useTenant";
 
 
 const ServicesPage = () => {
 
-    const [establishment, setEstablishment] = useState<any>(null);
+    const { tenant, loading } = useTenant();
     const [services, setServices] = useState<any[]>([]);
 
     useEffect(() => {
         async function loadData() {
-            const est = await api.getEstablishment();
             const serv = await api.getServices();
-
-            setEstablishment(est);
             setServices(Array.isArray(serv) ? serv : []);
         }
 
@@ -29,6 +27,9 @@ const ServicesPage = () => {
 
 
 
+    if (loading || !tenant) {
+        return <div>Loading...</div>;
+    }
     return (
         <div>
             <div className="relative h-[250px] w-full">
@@ -63,10 +64,10 @@ const ServicesPage = () => {
 
             {/* TITÚLO */}
             <div className="border-b border-solid p-5">
-                <h1 className="mb-3 text-xl font-bold">{establishment?.name}</h1>
+                <h1 className="mb-3 text-xl font-bold">{tenant.name}</h1>
                 <div className="mb-2 flex items-center gap-2">
                     <MapPinIcon className="text-primary" size={18} />
-                    <p className="text-sm">{establishment?.address}</p>
+                    <p className="text-sm">{tenant.address}</p>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -78,7 +79,7 @@ const ServicesPage = () => {
             {/* DESCRIÇÂO */}
             <div className="space-y-2 border-b border-solid p-5">
                 <h2 className="text-xs font-bold uppercase text-gray-400">Sobre nós</h2>
-                <p className="text-justify text-sm">{establishment?.description}</p>
+                <p className="text-justify text-sm">{tenant.description}</p>
             </div>
 
             {/* SERVIÇOS */}
