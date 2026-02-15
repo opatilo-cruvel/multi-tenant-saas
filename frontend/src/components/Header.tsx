@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { useTenant } from "@/hooks/useTenant";
 
 const Header = () => {
+  const { tenant, loading } = useTenant();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -21,6 +24,8 @@ const Header = () => {
     { name: "Contato", href: "#contact" },
   ];
 
+  const establishmentName = tenant?.name ?? "Carregando...";
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -30,9 +35,13 @@ const Header = () => {
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#home" className="font-display text-2xl md:text-3xl font-semibold tracking-wide">
-          <span className="text-foreground">Emilly Ravelly</span>
-          <span className="text-primary"> Nail</span>
+        <a
+          href="#home"
+          className="font-display text-2xl md:text-3xl font-semibold tracking-wide"
+        >
+          <span className="text-foreground">
+            {loading ? "..." : establishmentName}
+          </span>
         </a>
 
         {/* Desktop Navigation */}
